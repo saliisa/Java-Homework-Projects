@@ -1,3 +1,4 @@
+package Homework1;
 //package dev.m3s.programming2.homework1;
 
 public class Main {
@@ -15,7 +16,7 @@ public class Main {
         student1.setTitleOfMastersThesis("Masters thesis title");
         student1.setTitleOfBachelorsThesis("Bachelors thesis title");
         student1.setStartYear(2001);
-        student1.setGraduationYear(2020);
+        student1.setGraduationYear(2020); //2020
         //
 
         student2.setBachelorCredits(65);

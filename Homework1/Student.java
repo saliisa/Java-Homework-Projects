@@ -1,3 +1,4 @@
+package Homework1;
 //package dev.m3s.programming2.homework1;
 import java.time.Year;
 import java.util.Random;
@@ -7,12 +8,12 @@ public class Student {
     //Attributes
     private String firstName = "No name";
     private String lastName = "No name";
-    private int id;  //init??
+    private int id = 0;  //init??
     private double bachelorCredits = 0.0;  //init??
     private double masterCredits = 0.0;  //init??
     private String titleOfMastersThesis = "No title";
     private String titleOfBachelorsThesis = "No title";
-    private int startYear = Year.now().getValue();
+    private int startYear = Year.now().getValue(); //is this correct??
     private int graduationYear = 0;  //init??
     private String birthDate = "Not available";
 
@@ -180,22 +181,25 @@ public class Student {
             //a) completed all required credits ( bachelor + masters)
             //b) given year is within timefram from start of studies
             //  to this date (neither before the start if the studies 
-            // nor in the future)
-        //Utilize canGraduate here
+            // nor in the future)  
+        //Utilize canGraduate here 
 
-        boolean ableToGraduate = canGraduate();
+        boolean ableToGraduate = canGraduate(); 
 
-        if(ableToGraduate == true ){
-            if(graduationYear >= startYear && graduationYear <= Year.now().getValue()){
+        //if(ableToGraduate == true ){
+            if(ableToGraduate == true && (graduationYear >= startYear && graduationYear <= Year.now().getValue())){
                 this.graduationYear = graduationYear;
                 return "Ok";
+            } else if (ableToGraduate == false && graduationYear <= Year.now().getValue()){
+                //ISSUE here is that it can only be set if a) and b) are true
+                this.graduationYear = graduationYear;
+                return "Check required studies"; 
+               
             } else{
                 return "Check graduation year";
             }
-
-        } else{
-            return "Check required studies";
-        }
+            
+        //}
 
     }
 
@@ -204,9 +208,10 @@ public class Student {
         //returns info whether student has grauduated or not ( based on graduation year)
         if(setGraduationYear(graduationYear).equals("Ok")){
             return true;
+        } else{
+            return false;
         }
 
-        return false;
     }
 
     private boolean canGraduate(){
@@ -218,16 +223,16 @@ public class Student {
         String bachelorThesisTitle = getTitleOfBachelorsThesis();
         String masterThesisTitle = getTitleOfMastersThesis();
 
-        // FIX ----------------------------------
+        // FIX for better readability----------------------------------
         if((bachelorCr < 180.0 || masterCr < 120.0) || (bachelorThesisTitle.equals("No title") || masterThesisTitle.equals("No title"))){
-            return false;
-        } else{
+            return false; 
+        } else {  
             return true;
-        }
+        } 
 
     }
 
-    public String graduationStatus(){
+    private String graduationStatus(){
         if(hasGraduated() == true){
             return "The student has graduated in " + graduationYear;
         }
@@ -237,25 +242,53 @@ public class Student {
 
     public int getStudyYears(){
         //int studiesLasted = graduationYear - startYear
-        //if hasgraduated != true, then "studies have lasted for __ years"
-        // if hasgraduated == true, then "studies lasted for __ years"
+
+        /*The method will check if the student has graduated or
+            not and will return the number of years used for the
+        studies.
+        */
+
         int studiesLasted = 0;
 
-       if(hasGraduated() == true){
+        boolean hasgraduated = hasGraduated();
+        int graduated = getGraduationYear();
+        int started = getStartYear();
+
+      
+        if(hasgraduated == true || graduated > started ){ //definitely will have bugs but works for now
+            studiesLasted = graduated - started;
+            return studiesLasted;
+        }
+
+        return studiesLasted;
+
+      //  graduationYear = getGraduationYear();
+      /*  if(hasGraduated() == true){
             studiesLasted = graduationYear - startYear;
             return studiesLasted;
-       } else if(hasGraduated() == false && graduationYear <  Year.now().getValue()){
-          /*   graduationYear = getGraduationYear();
-            studiesLasted = graduationYear - startYear;
-            return studiesLasted; */
+       } else if(hasGraduated() == false && graduationYear == startYear ){
+            studiesLasted = 0;
+            return studiesLasted; 
        } else{
-          //  return studiesLasted = 0; 
-       }
+           graduationYear = getGraduationYear();
+            studiesLasted = graduationYear - startYear;
+            return studiesLasted; 
+       }*/
+       
+       /*else if(hasGraduated() == false && (graduationYear != startYear || graduationYear  < startYear)){
+           graduationYear = getGraduationYear();
+            studiesLasted = graduationYear - startYear;
+            return studiesLasted; 
+       } else if(hasGraduated() == false && graduationYear == startYear ){
+            return studiesLasted; 
+       }*/
+
+       
     
     }
 
 
-    public String printStudyYears(){
+    private String printStudyYears(){
         int yearsOfStudy = getStudyYears();
 
         if(hasGraduated() == true){
@@ -265,15 +298,6 @@ public class Student {
         }
 
     }
-
-
-
-
-
-
-
-
-
 
 
 
@@ -303,7 +327,8 @@ public class Student {
         "\nMasterCredits: " + masterCredits  + " ==> "+ masterCreditStatus() + "\n" +  //fix 
         "TitleOfMastersThesis: "  + titleOfMastersThesis + "\n\n" +
         "Can graduate?: " + canGraduate() + "\n" +
-        "GraduationYear: " + graduationYear
+        "GraduationYear: " + graduationYear + "\n" +
+        "SetGraduationYear: " + setGraduationYear(graduationYear)
         
         ;
 

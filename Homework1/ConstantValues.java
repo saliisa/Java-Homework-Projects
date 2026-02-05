@@ -1,3 +1,4 @@
+package Homework1;
 //package dev.m3s.programming2.homework1;
 
 public class ConstantValues {
