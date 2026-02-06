@@ -314,7 +314,7 @@ public class Student {
         "\t\t \nFirstName: " + firstName + 
         ", LastName: " + lastName +
         "\nDate of birth: " + birthDate +  //set from id number ?
-        "\nStatus: \"" + graduationStatus() + "\"\n" +  //fix? //hasgraduated boolean
+        "\nStatus: \"" + graduationStatus() + "\"\n" +  //fix? 
         "StartYear: " + startYear +  " (" + printStudyYears() + ")" + 
         "\nBachelorCredits: " + bachelorCredits + " ==> " + bachelorCreditStatus() + "\n" +  //fix
         "TitleOfBachelorThesis: " + titleOfBachelorsThesis +
@@ -322,7 +322,10 @@ public class Student {
         "TitleOfMastersThesis: "  + titleOfMastersThesis + "\n\n" +
         "Can graduate?: " + canGraduate() + "\n" +
         "GraduationYear: " + graduationYear + "\n" +
-        "SetGraduationYear: " + setGraduationYear(graduationYear) + "\n\n" 
+        "SetGraduationYear: " + setGraduationYear(graduationYear) + "\n\n" + "\n" 
+
+
+
 
         
 
@@ -340,18 +343,66 @@ public class Student {
     public String setPersonId(final String personID){
         //a) checks the personID has been given the correct way (use the method checkPersonIDNumber) and if done so,
         //b) will form the given personID to the format dd.mm.yyyy and ensures the values in that date are correct (use the method checkBirthdate) and if so,
-        //c) will check the chracter in the original, given personID waws correct (use method checkValidCharacter here) 
+        //c) will check the chracter in the original, given personID was correct (use method checkValidCharacter here) 
 
         //If all is ok, --> method will set the birthdate (check the format and returns "Ok");
-        //If personID != 11 characters && century character is not one of the valid ones ('+', '-' ,or 'A') --> return "Invalid birthday!"
-        //If days, months or year in the ID is not correct (note leap year), based on return value of checkBirthdate --> method will return "Invalid birthday!"
-        //If the last character in ID (check mark) kis not correct, based on return value of method checkValidCharacter --> method returns "Incorrect check mark!"
+        //If personID NOT 11 characters && century character is NOT one of the valid ones ('+', '-' ,or 'A') --> return "Invalid birthday!"
+        //If days, months or year in the ID is NOT correct (note leap year), based on return value of checkBirthdate --> method will return "Invalid birthday!"
+        //If the last character in ID (check mark) is NOT correct, based on return value of method checkValidCharacter --> method returns "Incorrect check mark!"
 
-       if(checkPersonIDNumber(personID) == true){
-          return "Correct";
-       }
+        boolean checkingID = checkPersonIDNumber(personID);
+        String birthDate = null;
+        String day = null;
+        String month = null;
+        String year= null;
+      //  char [] personIDArray = personID.toCharArray();
+        char centChar = ' ';
+
+       if(checkingID == true){
+
+        //personID = 221199-123A --> 22.11.1999
+           // this.birthDate = date;
+
+           //form birthdate in form dd.mm.yyyy
+           //change string to array, get values, change back to string for birthDate
+           //checkBirthdate function
+           //year based on century char values -->19th cent = +; 20th cent = -; 21st cent = A
+
+           day = personID.substring(0,2);
+           month = personID.substring(2,4);
+
+           //year funcitionality to be done, trying to see if it works first
+           year = personID.substring(4,6);
+
+
+           birthDate = day + "." + month + "." + year;
+
+           this.birthDate = birthDate;
+
+           
+
+
+
+
+
+
+
+
+
+
+           
+
+
+
+
+
+
+
+
+            return "Ok";
+        }
        
-       return "Wrong";
+       return "Invalid birthday!";
 
 
       
@@ -363,39 +414,49 @@ public class Student {
     private boolean checkPersonIDNumber(final String personID){
         //receives social security num as an input string and checks 
         // the given string has 11 characters and that the 
-        // "century character" in the string is a valid onei.e. '+', '-', or 'A'
+        // "century character" in the string is a valid one (i.e. '+', '-', or 'A')
 
-
+        //
         //array?
-       /*  char [] personIDArray = personID.toCharArray();
+        char [] personIDArray = personID.toCharArray();
 
-        if(personIDArray.length == 11 && personIDArray[-1] == ){
-
-            return true;
-        }*/
-
-
-
-
+        if(personIDArray.length == 11 ){
+            if (personIDArray[6] == '+' || personIDArray[6] == '-' || personIDArray[6] == 'A'){
+                // do i need to check if the century character corresponds to the year born? 
+                // --> 19th cent = +; 20th cent = -; 21st cent = A
+                return true;
+            }
+        }
 
         return false;
-
+           
     }
 
     private boolean checkLeapYear(int year){ 
         //checks whether given year is a leap year or not (true = leap year)
 
-
-
-
-
-
+        if((year % 4 == 0 && year % 100 != 0) || year % 400 == 0){
+           return true;
+        }
 
         return false;
     } 
 
 
+
     private boolean checkValidCharacter(final String personID){
+        //control character for ID code calculation
+
+        //e.g. 131052-308T -->
+        //131052308 / 31 = 4227493.8064516129032258064516129
+        // the 0.8064516129032258064516129 * 31 = 24.9999999999999999999999999
+        // the number is rounded to 25 == T
+
+        /*Note – here, in this method, the value “221199-123A”
+        can be set to be a valid test value (although not a valid
+        value in real life). */
+
+
 
 
         return false;
@@ -406,7 +467,10 @@ public class Student {
 
 
 
-    private boolean checkBirthdate(final String date){
+    private boolean checkBirthdate(final String date){ //checks if values in birthdate are correct
+
+        //method receive birthdate in the format dd.mm.yyyy
+        //splits day, month, year from given string 
 
 
         return false;

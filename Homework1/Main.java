@@ -44,6 +44,10 @@ public class Main {
         System.out.println("Student 3 ----\n" + student3);
 
 
+
+       // student1.setPersonId("This is a string");
+
+
         /*Print the output when setting the person id “This is a string” to one of the students.
          Print the output when setting the person id “320187-1234” to one of the students.
          Print the output when setting the person id “11111111-3334” to one of the students.
