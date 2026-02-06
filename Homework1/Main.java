@@ -19,13 +19,18 @@ public class Main {
         student1.setGraduationYear(2020); //2020
         //
 
+
+        student2.setPersonId("221199-123A");
         student2.setBachelorCredits(65);
         student2.setMasterCredits(22);
         student2.setTitleOfBachelorsThesis("A new exciting purpose of life");
 
+       
+
 
 
         ///
+        student3.setPersonId("111111-334");
         student3.setBachelorCredits(215);
         student3.setMasterCredits(120);
         student3.setTitleOfBachelorsThesis("Dreaming of a white Christmas");
@@ -37,6 +42,20 @@ public class Main {
         System.out.println("Student 1 ----\n" + student1 + "\n");
         System.out.println("Student 2 -----\n" + student2 + "\n");
         System.out.println("Student 3 ----\n" + student3);
+
+
+        /*Print the output when setting the person id “This is a string” to one of the students.
+         Print the output when setting the person id “320187-1234” to one of the students.
+         Print the output when setting the person id “11111111-3334” to one of the students.
+         Print the output when setting the person id “121298-830A” to one of the students. */
+
+         //Invalid Birthday
+         //Invalid Birthday
+         //Invalid Birthday
+         //Incorrect check mark?
+
+
+         
     }
     
 }
