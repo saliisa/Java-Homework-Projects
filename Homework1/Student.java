@@ -307,35 +307,7 @@ public class Student {
         return randomNum;
     }
 
-    @Override
-    public String toString(){
-        //ID & Status fix
-        return "Student ID: " + id + 
-        "\t\t \nFirstName: " + firstName + 
-        ", LastName: " + lastName +
-        "\nDate of birth: " + birthDate +  //set from id number ?
-        "\nStatus: \"" + graduationStatus() + "\"\n" +  //fix? 
-        "StartYear: " + startYear +  " (" + printStudyYears() + ")" + 
-        "\nBachelorCredits: " + bachelorCredits + " ==> " + bachelorCreditStatus() + "\n" +  //fix
-        "TitleOfBachelorThesis: " + titleOfBachelorsThesis +
-        "\nMasterCredits: " + masterCredits  + " ==> "+ masterCreditStatus() + "\n" +  //fix 
-        "TitleOfMastersThesis: "  + titleOfMastersThesis + "\n\n" +
-        "Can graduate?: " + canGraduate() + "\n" +
-        "GraduationYear: " + graduationYear + "\n" +
-        "SetGraduationYear: " + setGraduationYear(graduationYear) + "\n\n" + "\n" 
-
-
-
-
-        
-
-
-
-        
-        ;
-
-        //still more to print;
-    }
+   
 
 
     //setPersonId
@@ -351,33 +323,53 @@ public class Student {
         //If the last character in ID (check mark) is NOT correct, based on return value of method checkValidCharacter --> method returns "Incorrect check mark!"
 
         boolean checkingID = checkPersonIDNumber(personID);
-        String birthDate = null;
+        String date = null;
         String day = null;
         String month = null;
         String year= null;
       //  char [] personIDArray = personID.toCharArray();
-        char centChar = ' ';
+        String centChar = null;
 
        if(checkingID == true){
 
         //personID = 221199-123A --> 22.11.1999
-           // this.birthDate = date;
+            //form birthdate in form dd.mm.yyyy
+            //change string to array, get values, change back to string for birthDate
+            //checkBirthdate function
+            //year based on century char values -->19th cent = +; 20th cent = -; 21st cent = A
 
-           //form birthdate in form dd.mm.yyyy
-           //change string to array, get values, change back to string for birthDate
-           //checkBirthdate function
-           //year based on century char values -->19th cent = +; 20th cent = -; 21st cent = A
+            day = personID.substring(0,2);
+            month = personID.substring(2,4);
+            centChar = personID.substring(6,7);
+            year = personID.substring(4,6);
 
-           day = personID.substring(0,2);
-           month = personID.substring(2,4);
+            if(centChar.equals("+")){
+                year = "18" + year;
+            } else if (centChar.equals("-")){
+                year = "19" + year;
+            } else if(centChar.equals("A")){
+                year = "20" + year;
+            } else{ }
 
-           //year funcitionality to be done, trying to see if it works first
-           year = personID.substring(4,6);
+            date = day + "." + month + "." + year ;
+
+           
+          
+            if(checkBirthdate(date) == true){ 
+                this.birthDate = date;
 
 
-           birthDate = day + "." + month + "." + year;
+                //to be done
+                /*if(checkValidCharacter(personID)== true){
+                    //  this.birthDate = birthDate;
+                    // return "Ok";
+                }*/
+     
+            }
+            return "Invalid birthday!";
 
-           this.birthDate = birthDate;
+               
+
 
            
 
@@ -387,19 +379,7 @@ public class Student {
 
 
 
-
-
-
-           
-
-
-
-
-
-
-
-
-            return "Ok";
+            
         }
        
        return "Invalid birthday!";
@@ -418,6 +398,7 @@ public class Student {
 
         //
         //array?
+        //StringBuilder .substring?
         char [] personIDArray = personID.toCharArray();
 
         if(personIDArray.length == 11 ){
@@ -433,7 +414,6 @@ public class Student {
     }
 
     private boolean checkLeapYear(int year){ 
-        //checks whether given year is a leap year or not (true = leap year)
 
         if((year % 4 == 0 && year % 100 != 0) || year % 400 == 0){
            return true;
@@ -465,12 +445,55 @@ public class Student {
 
 
 
-
-
     private boolean checkBirthdate(final String date){ //checks if values in birthdate are correct
 
         //method receive birthdate in the format dd.mm.yyyy
         //splits day, month, year from given string 
+
+  
+        int day = 0;
+        int month = 0;
+        int year = 0;
+
+
+        //NumberFormatException ERROR 
+
+        /* 
+        day = Integer.parseInt(date.substring(0,2));
+       month =  Integer.parseInt(date.substring(3,5));
+        year =  Integer.parseInt(date.substring(6,10));
+
+
+        //if(day > 0 &&  day < 31 && month > 0 && month < 12 && year > 0){ //better way??
+
+        if(year > 0){ //also not more than current year?
+            if(month > 0 &&  month <= 12){
+                if (day > 0 &&  day <= 31) {
+                    if((month == 02 || month == 04 || month == 06 || month == 9 || month == 11) && day < 31){
+                            return true;
+                    }
+
+
+
+
+
+
+
+
+
+
+                    
+                }
+
+            }
+            
+
+        }
+
+
+      
+
+        */
 
 
         return false;
@@ -480,7 +503,39 @@ public class Student {
 
 
 
+ @Override
+    public String toString(){
+        //ID & Status fix
+        return "Student ID: " + id + 
+        "\t\t \nFirstName: " + firstName + 
+        ", LastName: " + lastName +
+        "\nDate of birth: " + birthDate +  //set from id number ?
+        "\nStatus: \"" + graduationStatus() + "\"\n" +  //fix? 
+        "StartYear: " + startYear +  " (" + printStudyYears() + ")" + 
+        "\nBachelorCredits: " + bachelorCredits + " ==> " + bachelorCreditStatus() + "\n" +  //fix
+        "TitleOfBachelorThesis: " + titleOfBachelorsThesis +
+        "\nMasterCredits: " + masterCredits  + " ==> "+ masterCreditStatus() + "\n" +  //fix 
+        "TitleOfMastersThesis: "  + titleOfMastersThesis + "\n\n" +
+        "Can graduate?: " + canGraduate() + "\n" +
+        "GraduationYear: " + graduationYear + "\n" +
+        "SetGraduationYear: " + setGraduationYear(graduationYear) + "\n\n" + "\n" +
 
+
+
+        "Valid birthdate?: " + checkBirthdate(birthDate)
+
+
+
+
+        
+
+
+
+        
+        ;
+
+        //still more to print;
+    }
 
 
 
