@@ -334,7 +334,7 @@ public class Student {
 
         //personID = 221199-123A --> 22.11.1999
             //form birthdate in form dd.mm.yyyy
-            //change string to array, get values, change back to string for birthDate
+            //use substring
             //checkBirthdate function
             //year based on century char values -->19th cent = +; 20th cent = -; 21st cent = A
 
@@ -353,10 +353,10 @@ public class Student {
 
             date = day + "." + month + "." + year ;
 
-           
           
+           
             if(checkBirthdate(date) == true){ 
-                this.birthDate = date;
+               this.birthDate = date;
 
 
                 //to be done
@@ -368,24 +368,9 @@ public class Student {
             }
             return "Invalid birthday!";
 
-               
-
-
-           
-
-
-
-
-
-
-
-            
         }
        
        return "Invalid birthday!";
-
-
-      
 
     }
 
@@ -444,57 +429,43 @@ public class Student {
     }
 
 
-
     private boolean checkBirthdate(final String date){ //checks if values in birthdate are correct
-
         //method receive birthdate in the format dd.mm.yyyy
         //splits day, month, year from given string 
-
   
         int day = 0;
-        int month = 0;
+        int month = 0; 
         int year = 0;
-
-
-        //NumberFormatException ERROR 
-
-        /* 
+        
         day = Integer.parseInt(date.substring(0,2));
        month =  Integer.parseInt(date.substring(3,5));
         year =  Integer.parseInt(date.substring(6,10));
 
-
-        //if(day > 0 &&  day < 31 && month > 0 && month < 12 && year > 0){ //better way??
-
         if(year > 0){ //also not more than current year?
             if(month > 0 &&  month <= 12){
                 if (day > 0 &&  day <= 31) {
-                    if((month == 02 || month == 04 || month == 06 || month == 9 || month == 11) && day < 31){
+
+                    if(month == 2){
+                        if(checkLeapYear(year) == true && day == 29){
                             return true;
+                        } else if(day < 29){
+                            return true;
+                        }else{
+                            return false;
+                        }
+                        
                     }
-
-
-
-
-
-
-
-
-
+                    
+                    if((month == 4 || month == 6 || month == 9 || month == 11) && day < 31){
+                        return true;
+                    }
 
                     
                 }
 
             }
             
-
         }
-
-
-      
-
-        */
-
 
         return false;
     }
@@ -509,7 +480,7 @@ public class Student {
         return "Student ID: " + id + 
         "\t\t \nFirstName: " + firstName + 
         ", LastName: " + lastName +
-        "\nDate of birth: " + birthDate +  //set from id number ?
+        "\nDate of birth: " + birthDate  +  //set from id number ?
         "\nStatus: \"" + graduationStatus() + "\"\n" +  //fix? 
         "StartYear: " + startYear +  " (" + printStudyYears() + ")" + 
         "\nBachelorCredits: " + bachelorCredits + " ==> " + bachelorCreditStatus() + "\n" +  //fix
@@ -522,7 +493,9 @@ public class Student {
 
 
 
-        "Valid birthdate?: " + checkBirthdate(birthDate)
+        //"Valid birthdate?: " + checkBirthdate(birthDate) + "\n" + //causing issue
+
+        "---------------------------------------------------------------------------"
 
 
 
