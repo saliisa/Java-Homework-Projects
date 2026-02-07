@@ -17,7 +17,7 @@ public class Main {
         student1.setTitleOfBachelorsThesis("Bachelors thesis title");
         student1.setStartYear(2001);
         student1.setGraduationYear(2020); //2020
-        student2.setPersonId("310299-123A");
+        student1.setPersonId("310299-123A");
         //
 
 
@@ -33,7 +33,7 @@ public class Main {
         ///
        // student3.setPersonId("111111-334");
        //student3.setPersonId("010101A123N");
-       student3.setPersonId("290200-321N"); //should be wrong --> 1900 not a leap year
+       student3.setPersonId("290200A321N"); 
         student3.setBachelorCredits(215);
         student3.setMasterCredits(120);
         student3.setTitleOfBachelorsThesis("Dreaming of a white Christmas");
