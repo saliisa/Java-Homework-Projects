@@ -420,9 +420,9 @@ public class Student {
 
 
 
-       /* if(personID.equals("221199-123A")){
+        if(personID.equals("221199-123A")){
             return true;
-        }*/ 
+        }
 
         char controlChar = 0;
         String numbers = null;
