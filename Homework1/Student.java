@@ -2,6 +2,7 @@ package Homework1;
 //package dev.m3s.programming2.homework1;
 import java.time.Year;
 import java.util.Random;
+import java.lang.Math;
 
 public class Student {
 
@@ -72,7 +73,7 @@ public class Student {
 
     }
 
-    public void setBachelorCredits (final double bachelorCredits){
+    public void setBachelorCredits (final double bachelorCredits){ //check again
       //if(bachelorCredits > 0.0 && bachelorCredits <= 300.0 ){
             this.bachelorCredits = bachelorCredits;
      //   }
@@ -356,14 +357,10 @@ public class Student {
           
            
             if(checkBirthdate(date) == true){ 
-               this.birthDate = date;
-
-
-                //to be done
-                /*if(checkValidCharacter(personID)== true){
-                    //  this.birthDate = birthDate;
-                    // return "Ok";
-                }*/
+                if(checkValidCharacter(personID)== true){
+                    this.birthDate = date;
+                    return "Ok";
+                }
      
             }
             return "Invalid birthday!";
@@ -423,6 +420,77 @@ public class Student {
 
 
 
+       /* if(personID.equals("221199-123A")){
+            return true;
+        }*/ 
+
+        char controlChar = 0;
+        String numbers = null;
+        int idNumbers = 0;
+
+        int resultInt = 0;
+
+       // numbers = personID.replaceAll("\\D", "");  //takes all numbers even the controlChar if it is a num
+
+       numbers = personID.substring(0,6) + personID.substring(7,10);
+       System.out.println(numbers);
+
+        //controlChar = personID.substring(10, 11);
+        controlChar = personID.charAt(personID.length()-1);
+        System.out.println(controlChar);
+
+        idNumbers = Integer.parseInt(numbers);
+        System.out.println(idNumbers);
+        
+
+        //doing calculation:
+        double divideCalculation = 0.0;
+        double remainder = 0.0;
+        double resultDouble = 0.0;
+        double resultRounded = 0.0;
+
+
+        divideCalculation = (idNumbers * 1.0) / 31.0;
+        System.out.println(divideCalculation);
+
+        remainder =  divideCalculation - (int)divideCalculation;
+        System.out.println("r:" + remainder);
+
+
+        resultDouble = (remainder * 31.0); //math.round here instead
+        System.out.println(resultDouble);
+
+        resultRounded = Math.round(resultDouble);
+        System.out.println(resultRounded);
+
+
+        resultInt = (int)resultRounded;
+        System.out.println(resultInt);
+       System.out.println("\n");
+        //array?
+
+        char [] characterControl = {
+            '0','1','2','3','4','5','6','7','8','9',
+            'A','B','C','D','E','F','H','J','K',
+            'L','M','N','P','R','S','T','U','V',
+            'W','X','Y'       
+        };
+
+
+        for(int i = 0; i < characterControl.length; i++){
+          if(i == resultInt){ 
+                if(controlChar == characterControl[i]){
+                    System.out.println("in:");
+                    System.out.print(controlChar + ",");
+                    System.out.println(characterControl[i]);
+                    System.out.println("\n");
+                    return true;
+                }
+               
+            }
+
+        }
+
 
         return false;
 
@@ -432,6 +500,7 @@ public class Student {
     private boolean checkBirthdate(final String date){ //checks if values in birthdate are correct
         //method receive birthdate in the format dd.mm.yyyy
         //splits day, month, year from given string 
+
   
         int day = 0;
         int month = 0; 
@@ -459,6 +528,8 @@ public class Student {
                     if((month == 4 || month == 6 || month == 9 || month == 11) && day < 31){
                         return true;
                     }
+
+                    return true;
 
                     
                 }
